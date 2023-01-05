@@ -1,4 +1,5 @@
-Approach 1:-
+ Approach 1:-
+--------------    
 
 class Solution
 {
@@ -15,8 +16,8 @@ public:
     }
 };
 
-Approach 2:-
- 
+ Approach 2:-
+-------------- 
 class Solution
 {
 public:
