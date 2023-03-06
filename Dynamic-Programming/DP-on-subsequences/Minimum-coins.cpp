@@ -51,7 +51,7 @@ public:
                 int ntake = dp[i-1][j]+0;
                 int take = 1e9;
                 if(coins[i]<=j){
-                    take = 1+ dp[i-1][j-coins[i]];
+                    take = 1+ dp[i][j-coins[i]];
                 }
                 dp[i][j] = min(take,ntake);
             }
