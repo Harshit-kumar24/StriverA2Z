@@ -1,0 +1,65 @@
+ Approach 1:-
+--------------
+   
+class Solution {
+public:
+    int f(int ind,int target,vector<int>& coins,vector<vector<int>>& dp){
+        if(ind==0){
+            if(target%coins[0]==0) return target/coins[0];
+           return 1e9;
+        }
+        if(dp[ind][target]!=-1) return dp[ind][target];
+
+        int ntake = 0+ f(ind-1,target,coins,dp);
+        int take = 1e9;
+        if(coins[ind]<=target){
+            take = 1 + f(ind,target-coins[ind],coins,dp);
+        }
+        return dp[ind][target] =  min(take,ntake);
+    }
+    int coinChange(vector<int>& coins, int amount) {
+        int n = coins.size();
+        vector<vector<int>> dp(n,vector<int>(amount+1,-1));
+        int ans =  f(n-1,amount,coins,dp);
+
+        if(ans>=1e9) return -1;
+        return ans;
+    }
+};
+
+ Approach 2:-
+--------------
+   
+class Solution {
+public:
+    int coinChange(vector<int>& coins, int amount) {
+        int n = coins.size();
+        vector<vector<int>> dp(n,vector<int>(amount+1,0));
+        
+        for(int i =0;i<=amount;i++){
+            if(i % coins[0]==0){
+                dp[0][i] = int(i/coins[0]);
+            }
+            else{
+                dp[0][i] = 1e9;
+            }
+        }
+
+        for(int i =1;i<n;i++){
+            for(int j =0;j<=amount;j++){
+                
+                int ntake = dp[i-1][j]+0;
+                int take = 1e9;
+                if(coins[i]<=j){
+                    take = 1+ dp[i-1][j-coins[i]];
+                }
+                dp[i][j] = min(take,ntake);
+            }
+        }
+        int ans =  dp[n-1][amount];
+        if(ans>=1e9) return -1;
+
+        return ans;
+    }
+};
+   
